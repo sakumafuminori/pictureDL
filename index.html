@@ -65,7 +65,9 @@
 
       // 1.jpg から指定ページ数までの画像を一括ダウンロード
       for (var i = 1; i <= pageCount; i++) {
-        downloadImg(inputText + i + ".jpg");
+        // ファイル名に含まれる '/' を '_' に変換
+        var fileName = (inputText + i + ".jpg").replace(/\//g, '_');
+        downloadImg(fileName);
       }
     }
 
