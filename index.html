@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>画像表示</title>
+</head>
+<body>
+  <form action="#">
+    <input type="text" name="text" placeholder="表示したいテキスト">
+    <input type="image" src="button.jpg" alt="画像表示" onclick="showImage()">
+  </form>
+  <img id="image" src="" alt="表示された画像">
+  <p id="url"></p>
+  <script>
+    function showImage() {
+  // フォームからテキストを取得する
+  const text = document.querySelector("input[name='text']").value;
+
+  // テキストと1.jpgを連結したURLを生成
+  const url = `${text}.jpg`;
+
+  // 画像要素のsrc属性にURLを設定する
+  document.querySelector("#image").src = url;
+
+  // 連結後のURLを表示する
+  document.querySelector("#url").textContent = url;
+}
+  </script>
+</body>
+</html>
