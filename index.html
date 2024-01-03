@@ -29,13 +29,11 @@
   <input type="number" id="pageInput" placeholder="ページ数">
 
   <button onclick="displayImages()">画像表示</button>
-  <button onclick="downloadImages()">一括で保存</button>
+  <button onclick="downloadImgs()">一括で保存</button>
 
   <div id="imageContainer"></div>
 
   <script>
-    var imageUrls = []; // 画像のURLを保持する配列
-
     function displayImages() {
       // テキスト入力値の取得
       var inputText = document.getElementById("textInput").value;
@@ -55,36 +53,49 @@
         var imgElement = document.createElement("img");
         imgElement.src = imageUrl;
         imageContainer.appendChild(imgElement);
-
-        // 画像のURLを配列に追加
-        imageUrls.push(imageUrl);
       }
     }
 
-    function downloadImages() {
-      // ZIPファイルを作成
-      var zip = new JSZip();
+    function downloadImgs() {
+      // テキスト入力値の取得
+      var inputText = document.getElementById("textInput").value;
 
-      // 画像を一括でZIPファイルに追加
-      imageUrls.forEach(function(imageUrl, index) {
-        fetch(imageUrl)
-          .then(response => response.blob())
-          .then(blob => {
-            zip.file("image_" + (index + 1) + ".jpg", blob);
-          });
-      });
+      // 指定ページ数の取得
+      var pageCount = parseInt(document.getElementById("pageInput").value);
 
-      // ZIPファイルをダウンロード
-      zip.generateAsync({ type: "blob" })
-        .then(function(content) {
-          saveAs(content, "images.zip");
-        });
+      // 1.jpg から指定ページ数までの画像を一括ダウンロード
+      for (var i = 1; i <= pageCount; i++) {
+        downloadImg(inputText + i + ".jpg");
+      }
+    }
+
+    function downloadImg(fileName) {
+      // ファイル情報
+      const url = './imgs/' + fileName;
+
+      // IE用
+      if (window.navigator.msSaveOrOpenBlob) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.onload = function () {
+          if (xhr.status !== 200) {
+            return false;
+          }
+          window.navigator.msSaveOrOpenBlob(xhr.response, fileName);
+        }
+        xhr.send();
+      } else { // Chromeなど
+        let link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     }
   </script>
-
-  <!-- JSZipおよびFileSaver.jsのCDNを追加 -->
-  <script src="https://cdn.jsdelivr.net/npm/jszip@3.5.0/dist/jszip.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 
 </body>
 </html>
