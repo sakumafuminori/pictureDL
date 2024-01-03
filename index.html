@@ -2,29 +2,89 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>画像表示</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>画像表示ページ</title>
+  <style>
+    /* スタイルの追加（任意） */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <form action="#">
-    <input type="text" name="text" placeholder="表示したいテキスト">
-    <input type="image" src="button.jpg" alt="画像表示" onclick="showImage()">
-  </form>
-  <img id="image" src="" alt="表示された画像">
-  <p id="url"></p>
+
+  <h1>画像表示ページ</h1>
+
+  <label for="textInput">テキスト入力:</label>
+  <input type="text" id="textInput" placeholder="文字列を入力">
+
+  <label for="pageInput">指定ページ数:</label>
+  <input type="number" id="pageInput" placeholder="ページ数">
+
+  <button onclick="displayImages()">画像表示</button>
+  <button onclick="downloadImages()">一括で保存</button>
+
+  <div id="imageContainer"></div>
+
   <script>
-    function showImage() {
-  // フォームからテキストを取得する
-  const text = document.querySelector("input[name='text']").value;
+    var imageUrls = []; // 画像のURLを保持する配列
 
-  // テキストと1.jpgを連結したURLを生成
-  const url = `${text}.jpg`;
+    function displayImages() {
+      // テキスト入力値の取得
+      var inputText = document.getElementById("textInput").value;
 
-  // 画像要素のsrc属性にURLを設定する
-  document.querySelector("#image").src = url;
+      // 指定ページ数の取得
+      var pageCount = parseInt(document.getElementById("pageInput").value);
 
-  // 連結後のURLを表示する
-  document.querySelector("#url").textContent = url;
-}
+      // 画像を表示するための要素取得
+      var imageContainer = document.getElementById("imageContainer");
+
+      // 画像をクリア
+      imageContainer.innerHTML = "";
+
+      // 1.jpg から指定ページ数までの画像を表示
+      for (var i = 1; i <= pageCount; i++) {
+        var imageUrl = inputText + i + ".jpg";
+        var imgElement = document.createElement("img");
+        imgElement.src = imageUrl;
+        imageContainer.appendChild(imgElement);
+
+        // 画像のURLを配列に追加
+        imageUrls.push(imageUrl);
+      }
+    }
+
+    function downloadImages() {
+      // ZIPファイルを作成
+      var zip = new JSZip();
+
+      // 画像を一括でZIPファイルに追加
+      imageUrls.forEach(function(imageUrl, index) {
+        fetch(imageUrl)
+          .then(response => response.blob())
+          .then(blob => {
+            zip.file("image_" + (index + 1) + ".jpg", blob);
+          });
+      });
+
+      // ZIPファイルをダウンロード
+      zip.generateAsync({ type: "blob" })
+        .then(function(content) {
+          saveAs(content, "images.zip");
+        });
+    }
   </script>
+
+  <!-- JSZipおよびFileSaver.jsのCDNを追加 -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.5.0/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
 </body>
 </html>
