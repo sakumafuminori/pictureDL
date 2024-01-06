@@ -95,7 +95,7 @@
   <div id="imageContainer"></div>
   <div id="errorContainer"></div>
 
-  <button id="reloadButton" onclick="displayImages()">再読み込み</button>
+  <button id="reloadButton" onclick="checkLoadingStatus()">再読み込み</button>
 
   <script>
     function displayImages() {
@@ -143,6 +143,31 @@
         container.appendChild(numberElement);
         
         imageContainer.appendChild(container);
+      }
+    }
+
+    // 画像が読み込まれているか判定する関数
+    function checkLoadingStatus() {
+      // 画像要素の取得
+      var images = document.querySelectorAll("#imageContainer img");
+
+      // 未読込の画像数を初期化
+      var unloadedImageCount = 0;
+
+      // 画像の読み込み状態を確認
+      images.forEach(function(img) {
+        if (!img.complete || img.naturalWidth === 0) {
+          unloadedImageCount++;
+        }
+      });
+
+      // 未読込の画像があるか判定
+      if (unloadedImageCount > 0) {
+        // 読み込まれていない場合は再読み込み
+        displayImages();
+      } else {
+        // 読み込み完了のポップアップを表示
+        alert("読み込み完了");
       }
     }
   </script>
