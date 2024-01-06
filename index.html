@@ -13,39 +13,51 @@
         }
 
         /* フォームのスタイル調整 */
-        #textInput {
-            width: 30%; /* テキスト入力フォームの幅を30%に設定 */
-            margin-bottom: 10px; /* 下部に余白を追加 */
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
         }
 
-        #pageInput {
-            width: 70px; /* ページ数入力フォームの幅を70pxに設定 */
-            margin-bottom: 10px; /* 下部に余白を追加 */
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
         }
 
         /* 使用方法のスタイル調整 */
         #usageBox {
-            border: 2px solid #ddd; /* ボーダーのスタイル */
-            background-color: #f9f9f9; /* 背景色 */
-            padding: 15px; /* 内側の余白 */
-            border-radius: 10px; /* 角丸 */
-            margin-top: 10px; /* 修正：上部に余白を追加 */
-            text-align: left; /* テキストを左寄せに設定 */
+            border: 2px solid #ddd;
+            background-color: #f9f9f9;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 5px;
+            padding-bottom: 15px;
+            border-radius: 10px;
+            text-align: left;
+            max-width: 670px;
+            margin: 20px auto;
         }
 
         ol {
-            margin: 0; /* マージンをリセット */
-            padding-left: 20px; /* 左側の余白 */
+            margin: 0;
+            padding-left: 20px;
         }
 
         #hidden_link {
             display: block;
-            margin-bottom: 5px;
+            margin-top: 20px;
             text-align: right;
         }
 
         #urlButton {
-            width: 100px;
+            width: 100%;
             height: 40px;
             background-color: #3498db;
             color: white;
@@ -55,34 +67,36 @@
         }
 
         #imageUrlContainer {
-            margin-top: 10px;
-            text-align: left; /* 修正：テキストを左寄せに設定 */
+            margin-top: 20px;
+            text-align: left;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>画像表示ページ</h1>
+    <h1>画像URL生成</h1>
     <a id="hidden_link" href="https://nhentai.net/" target="_blank" style="text-decoration: none; color: transparent;">Hidden Link</a>
 
     <div id="usageBox">
-        <p><strong>使用方法:</strong></p>
-        <ol>
-            <li>対象画像サイトの1ページ目の画像を右クリックし、「画像のリンクをコピー」を押下。</li>
-            <li>「画像URL入力フォーム」にペースト。</li>
-            <li>対象画像サイトの最大ページ数を下の「指定ページ数」に入力。</li>
-            <li>「URL生成」ボタンを押下します。</li>
-        </ol>
+      <p><strong>使用方法</strong></p>
+      <ol>
+          <li>対象画像サイトの1ページ目の画像を右クリックし、「画像のリンクをコピー」を押下。</li>
+          <li>「画像URL入力フォーム」にペースト。</li>
+          <li>対象画像サイトの最大ページ数を下の「指定ページ数」に入力。</li>
+          <li>「URL生成」ボタンを押下します。</li>
+      </ol>
+  </div>
+
+    <div class="form-container">
+        <label for="textInput">画像URL入力フォーム:</label>
+        <input type="text" id="textInput" placeholder="画像URLを入力">
+
+        <label for="pageInput">指定ページ数:</label>
+        <input type="number" id="pageInput" placeholder="ページ数" max="999">
+
+        <button id="urlButton" onclick="generateURL()">URL生成</button>
     </div>
-
-    <label for="textInput">画像URL入力フォーム:</label>
-    <input type="text" id="textInput" placeholder="画像URLを入力">
-
-    <label for="pageInput">指定ページ数:</label>
-    <input type="number" id="pageInput" placeholder="ページ数" max="999">
-
-    <button id="urlButton" onclick="generateURL()">URL生成</button>
 
     <!-- 修正：画像URLを表示するコンテナを追加 -->
     <div id="imageUrlContainer"></div>
