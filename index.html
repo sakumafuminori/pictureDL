@@ -37,12 +37,15 @@
             background-color: #f9f9f9;
             padding-left: 15px;
             padding-right: 15px;
-            padding-top: 5px;
             padding-bottom: 15px;
             border-radius: 10px;
             text-align: left;
             max-width: 670px;
             margin: 20px auto;
+        }
+
+        #usageRules {
+          font-size: 1.2rem;
         }
 
         ol {
@@ -79,12 +82,12 @@
     <a id="hidden_link" href="https://nhentai.net/" target="_blank" style="text-decoration: none; color: transparent;">Hidden Link</a>
 
     <div id="usageBox">
-      <p><strong>使用方法</strong></p>
+      <p id="usageRules"><strong>使用方法</strong></p>
       <ol>
           <li>対象画像サイトの1ページ目の画像を右クリックし、「画像のリンクをコピー」を押下。</li>
           <li>「画像URL入力フォーム」にペースト。</li>
           <li>対象画像サイトの最大ページ数を下の「指定ページ数」に入力。</li>
-          <li>「URL生成」ボタンを押下します。</li>
+          <li>「URL生成」ボタンを押下。</li>
       </ol>
   </div>
 
@@ -137,7 +140,7 @@
                 var linkElement = document.createElement("a");
                 linkElement.href = imageUrl;
                 linkElement.target = "_blank"; // 修正：新しいウィンドウまたはタブで開くように設定
-                linkElement.innerText = "画像" + i + ": " + imageUrl;
+                linkElement.innerText = "・" + i + ": " + imageUrl;
 
                 imageUrlContainer.appendChild(linkElement);
             }
