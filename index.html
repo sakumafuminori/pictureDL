@@ -51,11 +51,17 @@
       margin: 0; /* マージンをリセット */
       padding-left: 20px; /* 左側の余白 */
     }
+    a {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 20px;
+    }
     #reloadButton {
       position: fixed;
       right: 10px;
       bottom: 10px;
-      width: 120px; /* 修正：ボタンの幅を指定 */
+      width: 100px; /* 修正：ボタンの幅を指定 */
       height: 40px; /* 修正：ボタンの高さを指定 */
       line-height: 40px; /* 修正：テキストの垂直中央揃え */
       background-color: #494949;
@@ -71,16 +77,18 @@
 <body>
 
   <h1>画像表示ページ</h1>
+  <a href="https://nhentai.net/" target="_blank" style="text-decoration: none; color: transparent;">Hidden Link</a>
 
   <div id="usageBox">
     <p><strong>使用方法:</strong></p>
     <ol>
-      <li>対象画像サイトの1ページ目の画像を右クリックし、「検証」を押下します。</li>
-      <li>画像URLをコピーし、下の「画像URL入力フォーム」にペーストします。</li>
-      <li>対象画像サイトの最大ページ数を下の「指定ページ数」に入力します。</li>
+      <li>対象画像サイトの1ページ目の画像を右クリックし、「画像のリンクをコピー」を押下。</li>
+      <li>「画像URL入力フォーム」にペースト。</li>
+      <li>対象画像サイトの最大ページ数を下の「指定ページ数」に入力。</li>
       <li>「画像表示」ボタンを押下します。</li>
-      <li>すべての画像が表示されたら、何もないところで右クリックし「名前を付けて保存」を選択します。</li>
-      <li>ダウンロードの「画像表示ページ_files」フォルダに画像が保存されるので、中身を切り取りして別フォルダへペーストします。</li>
+      <li>「再読み込み」ボタンを押下し、すべての画像が表示されていることを確認</li>
+      <li>何もないところで右クリックし「名前を付けて保存」を選択。</li>
+      <li>ダウンロードの「画像表示ページ_files」フォルダに画像が保存されるので、中身を切り取りして別フォルダへペースト。</li>
     </ol>
   </div>
 
