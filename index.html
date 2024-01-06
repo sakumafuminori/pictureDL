@@ -11,10 +11,23 @@
       text-align: center;
       margin: 50px;
     }
+    .imageContainer {
+      position: relative;
+      margin-top: 20px;
+      display: inline-block; /* 画像が左に並ぶようにするために追加 */
+    }
     img {
       max-width: 100%;
       height: auto;
-      margin-top: 20px;
+    }
+    .imageNumber {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 2.5em; /* 修正：文字サイズを2.5倍に設定 */
     }
     /* フォームのスタイル調整 */
     #textInput {
@@ -95,9 +108,24 @@
       // 1.jpg から指定ページ数までの画像を表示
       for (var i = 1; i <= pageCount; i++) {
         var imageUrl = baseInputText + i + ".jpg";
+
+        // 画像と連番を表示する要素を組み合わせてコンテナに追加
+        var container = document.createElement("div");
+        container.className = "imageContainer";
+
+        // 画像要素の生成
         var imgElement = document.createElement("img");
         imgElement.src = imageUrl;
-        imageContainer.appendChild(imgElement);
+
+        // 連番を表示する要素の生成
+        var numberElement = document.createElement("div");
+        numberElement.className = "imageNumber";
+        numberElement.innerHTML = i;
+
+        container.appendChild(imgElement);
+        container.appendChild(numberElement);
+        
+        imageContainer.appendChild(container);
       }
     }
   </script>
